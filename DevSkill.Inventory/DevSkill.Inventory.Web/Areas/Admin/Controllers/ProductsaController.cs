@@ -18,6 +18,14 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             _environment = environment;
         }
 
+        // Main Dashboard For EZO
+        public IActionResult Dashboarda()
+        {
+            return View();
+        }
+
+        
+        
         // GET: Products
         public IActionResult Index()
         {
