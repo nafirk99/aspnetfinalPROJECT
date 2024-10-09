@@ -4,7 +4,7 @@
     ViewData["Title"] = "Category List";
 }
 
-<h2>Categories</h2>
+@* <h2>Categories List</h2>
 
 <table class="table table-bordered">
     <thead>
@@ -27,4 +27,64 @@
     </tbody>
 </table>
 
-<a asp-action="Create" class="btn btn-success">Add New Category</a>
+<a asp-action="Create" class="btn btn-success">Add New Category</a> *@
+
+
+<!-- Search Form -->
+@* <form asp-action="Index" method="get" class="form-inline mb-3">
+    <div class="form-group mx-sm-3">
+        <input type="text" name="searchString" class="form-control" placeholder="Search Categories" value="@ViewData["CurrentFilter"]" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form> *@
+
+
+
+
+<!--Table Test-->
+<div class="row">
+    <div class="col-md-9">
+        <div class="p-4">
+            <!-- Flexbox row for Categories List and Search -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2><b>Categories List</b></h2>
+                <!-- Search form aligned to the right -->
+                <form asp-action="Index" method="get" class="form-inline">
+                    <div class="form-group mx-sm-3">
+                        <input type="text" name="searchString" class="form-control" placeholder="Search Categories" 
+                        value="@ViewData["CurrentFilter"]" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+
+            <!-- Categories Table -->
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" style="width: 20%;">Category Name</th>
+                        <th scope="col" style="width: 1%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model)
+                    {
+                        <tr>
+                            <td>@category.Name</td>
+                            <td class="text-nowrap">
+                                <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Create new category button -->
+            <a asp-action="Create" class="btn btn-success">Add New Category</a>
+        </div>
+    </div>
+</div>
+
+
+

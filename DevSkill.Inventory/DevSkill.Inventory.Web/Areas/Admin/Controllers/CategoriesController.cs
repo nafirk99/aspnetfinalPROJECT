@@ -16,11 +16,31 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         // GET: Categories
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    var categories = _context.Categories.ToList();
+        //    return View(categories);
+        //}
+
+        //Test Code For Searching In Index Category
+        public IActionResult Index(string searchString)
         {
-            var categories = _context.Categories.ToList();
+            // Store the current search query in ViewData so it can be reused in the view
+            ViewData["CurrentFilter"] = searchString;
+
+            // Retrieve all categories
+            var categories = _context.Categories.AsQueryable();
+
+            // Filter categories based on the search query
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                categories = categories.Where(c => c.Name.Contains(searchString));
+            }
+            // Return the filtered or full category list to the view
             return View(categories);
         }
+
+
 
         // GET: Categories/Create
         public IActionResult Create()
