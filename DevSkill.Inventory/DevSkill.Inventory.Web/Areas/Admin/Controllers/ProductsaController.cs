@@ -26,12 +26,35 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
         
         
-        // GET: Products
-        public IActionResult Index()
+        //// GET: Products
+        //public IActionResult Index()
+        //{
+        //    var products = _context.Productsa.Include(p => p.Category).ToList();
+        //    return View(products);
+        //}
+
+
+
+        // New INdex Action
+        public IActionResult Index(string searchString)
         {
-            var products = _context.Productsa.Include(p => p.Category).ToList();
+            // Storing the Current search query in the ViewData so taht we can use it in the view  
+            ViewData["Filter"] = searchString;
+
+            // Retrieve All the Products
+            var products = _context.Productsa.Include(p => p.Category).AsQueryable();
+
+            // Filter Products Based On the search Query
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = _context.Productsa.Where(p => p.Name.Contains(searchString));
+            }
             return View(products);
         }
+
+
+
+
 
         // GET: Products/Create
         public IActionResult Create()
