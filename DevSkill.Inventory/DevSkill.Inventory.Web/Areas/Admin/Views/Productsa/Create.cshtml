@@ -1,52 +1,123 @@
 ﻿@model DevSkill.Inventory.Domain.Entities.ProductDTO
+
 @{
     ViewData["Title"] = "Create Product";
     var categories = ViewBag.Categories as List<DevSkill.Inventory.Domain.Entities.Category>;
+    var vendors = ViewBag.Vendors as List<DevSkill.Inventory.Domain.Entities.Vendor>;
+    var groups = ViewBag.Groups as List<DevSkill.Inventory.Domain.Entities.Group>;
 }
 
-<h2>Create Product</h2>
+<div class="row">
+    <div class="col-md-8 mx-auto rounded border p-3">
+        <h2 class="text-center mb-5"><b>Create Product</b></h2>
 
-<form asp-action="Create" enctype="multipart/form-data" method="post">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Brand</label>
+                <div class="col-sm-8">
+                    <input asp-for="Brand" class="form-control" />
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Price</label>
+                <div class="col-sm-8">
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Description</label>
+                <div class="col-sm-8">
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">AIN</label>
+                <div class="col-sm-8">
+                    <textarea asp-for="AIN" class="form-control"></textarea>
+                    <span asp-validation-for="AIN" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Created By</label>
+                <div class="col-sm-8">
+                    <textarea asp-for="CreatedBy" class="form-control"></textarea>
+                    <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Vendor</label>
+                <div class="col-sm-8">
+                    <select asp-for="VendorId" class="form-select">
+                        <option value="">Select a Vendor</option>
+                        @foreach (var vendor in vendors)
+                        {
+                            <option value="@vendor.Id">@vendor.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="VendorId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Group</label>
+                <div class="col-sm-8">
+                    <select asp-for="GroupId" class="form-select">
+                        <option value="">Select a Group</option>
+                        @foreach (var group in groups)
+                        {
+                            <option value="@group.Id">@group.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="GroupId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Category</label>
+                <div class="col-sm-8">
+                    <select asp-for="CategoryId" class="form-select">
+                        <option value="">Select a Category</option>
+                        @foreach (var category in categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Image</label>
+                <div class="col-sm-8">
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-sm-4 col-sm-8 d-grid">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Brand"></label>
-        <input asp-for="Brand" class="form-control" />
-        <span asp-validation-for="Brand" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CategoryId">Category</label>
-        <select asp-for="CategoryId" class="form-control">
-            <option value="">Select a Category</option>
-            @foreach (var category in categories)
-            {
-                <option value="@category.Id">@category.Name</option>
-            }
-        </select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ImageFile">Image</label>
-        <input asp-for="ImageFile" type="file" class="form-control" />
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

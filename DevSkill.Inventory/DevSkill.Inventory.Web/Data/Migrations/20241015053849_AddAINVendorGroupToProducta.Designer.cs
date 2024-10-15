@@ -4,16 +4,19 @@ using DevSkill.Inventory.Infrastructutre;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DevSkill.Inventory.Web.Data.Migrations
+namespace DevSkill.Inventory.Web.Migrations.InventoryDb
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class ProductDbCntextModelSnapshot : ModelSnapshot
+    [Migration("20241015053849_AddAINVendorGroupToProducta")]
+    partial class AddAINVendorGroupToProducta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -42,7 +42,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             ViewData["Filter"] = searchString;
 
             // Retrieve All the Products
-            var products = _context.Productsa.Include(p => p.Category).AsQueryable();
+            var products = _context.Productsa.Include(p => p.Category).Include(v => v.Vendor).Include(g => g.Group).AsQueryable();
 
             // Filter Products Based On the search Query
             if (!string.IsNullOrEmpty(searchString))
@@ -60,6 +60,10 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewBag.Categories = _context.Categories.ToList();
+            //New Code
+            ViewBag.Vendors = _context.Vendors.ToList();
+            ViewBag.Groups = _context.Groups.ToList();
+
             return View();
         }
 
@@ -82,6 +86,10 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = _context.Categories.ToList();
+
+                // New Code
+                ViewBag.Vendors = _context.Vendors.ToList();
+                ViewBag.Groups = _context.Groups.ToList();
                 return View(productDTO);
             }
 
@@ -104,6 +112,10 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 Brand = productDTO.Brand,
                 Price = productDTO.Price,
                 Description = productDTO.Description,
+                AIN = productDTO.AIN,
+                CreatedBy = productDTO.CreatedBy,
+                VendorId = productDTO.VendorId,       // Assign vendor
+                GroupId = productDTO.GroupId,        // Assign group
                 CategoryId = productDTO.CategoryId, // Assign category
                 CreatedAt = DateTime.Now
                 ,
@@ -131,6 +143,10 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 Brand = product.Brand,
                 Price = product.Price,
                 Description = product.Description,
+                AIN = product.AIN,
+                CreatedBy = product.CreatedBy,
+                VendorId = product.VendorId,
+                GroupId = product.GroupId,
                 CategoryId = product.CategoryId
             };
 
@@ -139,6 +155,9 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             ViewData["CreatedAt"] = product.CreatedAt;
 
             ViewBag.Categories = _context.Categories.ToList();
+            // New Code
+            ViewBag.Vendors = _context.Vendors.ToList();
+            ViewBag.Groups = _context.Groups.ToList();
             return View(productDTO);
         }
 
@@ -156,6 +175,9 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = _context.Categories.ToList();
+                // New Code
+                ViewBag.Vendors = _context.Vendors.ToList();
+                ViewBag.Groups = _context.Groups.ToList();
                 return View(productDTO);
             }
 
@@ -196,6 +218,10 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             product.Brand = productDTO.Brand;
             product.Price = productDTO.Price;
             product.Description = productDTO.Description;
+            product.AIN = productDTO.AIN;
+            product.CreatedBy = productDTO.CreatedBy;
+            product.VendorId = productDTO.VendorId;
+            product.GroupId = productDTO.GroupId;
             product.CategoryId = productDTO.CategoryId;
             product.ImageFileName = newFileName;
 

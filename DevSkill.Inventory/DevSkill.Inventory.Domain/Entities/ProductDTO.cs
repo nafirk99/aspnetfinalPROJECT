@@ -17,10 +17,24 @@ namespace DevSkill.Inventory.Domain.Entities
         [Required]
         public string Description { get; set; } = "";
 
+        [Required]
+        public string AIN { get; set; } = "";
+
+        [Required]
+        public String CreatedBy { get; set; } = "";
+
         public IFormFile? ImageFile { get; set; }
 
         // Category handling
         [Required]
         public int CategoryId { get; set; }
+
+        // Vendor handling
+        [Required]
+        public int VendorId { get; set; }
+
+        // Group Handling
+        [Required]
+        public int GroupId { get; set; }
     }
 }
