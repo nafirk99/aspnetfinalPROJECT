@@ -48,6 +48,13 @@ namespace DevSkill.Inventory.Infrastructutre
                 .HasForeignKey(p => p.GroupId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Product -> Location Relation (One-To-Many)
+            modelBuilder.Entity<Producta>()
+                .HasOne(p => p.Location)
+                .WithMany(g => g.Products)
+                .HasForeignKey(p => p.LocationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -59,5 +66,6 @@ namespace DevSkill.Inventory.Infrastructutre
         // New Colum for Assets
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

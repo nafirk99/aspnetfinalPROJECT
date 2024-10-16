@@ -5,6 +5,7 @@
     var categories = ViewBag.Categories as List<DevSkill.Inventory.Domain.Entities.Category>;
     var vendors = ViewBag.Vendors as List<DevSkill.Inventory.Domain.Entities.Vendor>;
     var groups = ViewBag.Groups as List<DevSkill.Inventory.Domain.Entities.Group>;
+    var locations = ViewBag.Locations as List<DevSkill.Inventory.Domain.Entities.Location>;
 }
 
 <div class="row">
@@ -60,6 +61,60 @@
                 </div>
             </div>
 
+            <!--Total Quantity-->
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Total Quantity</label>
+                <div class="col-sm-8">
+                    <textarea asp-for="TotalQuantity" class="form-control"></textarea>
+                    <span asp-validation-for="TotalQuantity" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--ModelNumber-->
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">ModelNumber</label>
+                <div class="col-sm-8">
+                    <textarea asp-for="ModelNumber" class="form-control"></textarea>
+                    <span asp-validation-for="ModelNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--Available Quantity-->
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Available Quantity</label>
+                <div class="col-sm-8">
+                    <textarea asp-for="AvailableQuantity" class="form-control"></textarea>
+                    <span asp-validation-for="AvailableQuantity" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--Stock Price-->
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Stock Price</label>
+                <div class="col-sm-8">
+                    <textarea asp-for="StockPrice" class="form-control"></textarea>
+                    <span asp-validation-for="StockPrice" class="text-danger"></span>
+                </div>
+            </div>
+
+
+
+            <!--Location Dropdown-->
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Location</label>
+                <div class="col-sm-8">
+                    <select asp-for="LocationId" class="form-select">
+                        <option value="">Select a Location</option>
+                        @foreach (var location in locations)
+                        {
+                            <option value="@location.Id">@location.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="LocationId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--Vendor Dropdown-->
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Vendor</label>
                 <div class="col-sm-8">
@@ -74,6 +129,7 @@
                 </div>
             </div>
 
+            <!--Group Dropdown-->
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Group</label>
                 <div class="col-sm-8">
@@ -88,6 +144,7 @@
                 </div>
             </div>
 
+            <!--Category Dropdown-->
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Category</label>
                 <div class="col-sm-8">

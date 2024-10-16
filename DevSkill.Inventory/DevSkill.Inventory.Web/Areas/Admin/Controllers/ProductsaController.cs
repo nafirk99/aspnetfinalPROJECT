@@ -42,7 +42,31 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             ViewData["Filter"] = searchString;
 
             // Retrieve All the Products
-            var products = _context.Productsa.Include(p => p.Category).Include(v => v.Vendor).Include(g => g.Group).AsQueryable();
+            var products = _context.Productsa
+                .Include(p => p.Category)
+                .Include(v => v.Vendor)
+                .Include(g => g.Group)
+                .Include(l => l.Location).AsQueryable();
+
+            // Filter Products Based On the search Query
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = _context.Productsa.Where(p => p.Name.Contains(searchString));
+            }
+            return View(products);
+        }
+
+        public IActionResult AssetStockIndex(string searchString)
+        {
+            // Storing the Current search query in the ViewData so taht we can use it in the view  
+            ViewData["Filter"] = searchString;
+
+            // Retrieve All the Products
+            var products = _context.Productsa
+                .Include(p => p.Category)
+                .Include(v => v.Vendor)
+                .Include(g => g.Group)
+                .Include(l => l.Location).AsQueryable();
 
             // Filter Products Based On the search Query
             if (!string.IsNullOrEmpty(searchString))
@@ -63,6 +87,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             //New Code
             ViewBag.Vendors = _context.Vendors.ToList();
             ViewBag.Groups = _context.Groups.ToList();
+            ViewBag.Locations = _context.Locations.ToList();
 
             return View();
         }
@@ -90,6 +115,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 // New Code
                 ViewBag.Vendors = _context.Vendors.ToList();
                 ViewBag.Groups = _context.Groups.ToList();
+                ViewBag.Locations = _context.Locations.ToList();
                 return View(productDTO);
             }
 
@@ -114,12 +140,16 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 Description = productDTO.Description,
                 AIN = productDTO.AIN,
                 CreatedBy = productDTO.CreatedBy,
-                VendorId = productDTO.VendorId,       // Assign vendor
-                GroupId = productDTO.GroupId,        // Assign group
-                CategoryId = productDTO.CategoryId, // Assign category
-                CreatedAt = DateTime.Now
-                ,
-                ImageFileName = newFileName    //-------Newly added Code
+                VendorId = productDTO.VendorId,           // Assign vendor
+                GroupId = productDTO.GroupId,            // Assign group
+                CategoryId = productDTO.CategoryId,     // Assign category
+                LocationId = productDTO.LocationId,    // Assign location  
+                CreatedAt = DateTime.Now,
+                ImageFileName = newFileName,    //-------For Image 
+                TotalQuantity =productDTO.TotalQuantity,
+                ModelNumber = productDTO.ModelNumber,
+                AvailableQuantity = productDTO.AvailableQuantity,
+                StockPrice = productDTO.StockPrice
             };
 
             _context.Productsa.Add(product);
@@ -147,7 +177,12 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 CreatedBy = product.CreatedBy,
                 VendorId = product.VendorId,
                 GroupId = product.GroupId,
-                CategoryId = product.CategoryId
+                CategoryId = product.CategoryId,
+                LocationId = product.LocationId,
+                TotalQuantity = product.TotalQuantity,
+                ModelNumber = product.ModelNumber,
+                AvailableQuantity= product.AvailableQuantity,
+                StockPrice= product.StockPrice
             };
 
             ViewData["ProductId"] = product.Id;
@@ -158,6 +193,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             // New Code
             ViewBag.Vendors = _context.Vendors.ToList();
             ViewBag.Groups = _context.Groups.ToList();
+            ViewBag.Locations = _context.Locations.ToList();
             return View(productDTO);
         }
 
@@ -178,6 +214,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 // New Code
                 ViewBag.Vendors = _context.Vendors.ToList();
                 ViewBag.Groups = _context.Groups.ToList();
+                ViewBag.Locations = _context.Locations.ToList();
                 return View(productDTO);
             }
 
@@ -224,6 +261,11 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             product.GroupId = productDTO.GroupId;
             product.CategoryId = productDTO.CategoryId;
             product.ImageFileName = newFileName;
+            product.LocationId = productDTO.LocationId;
+            product.TotalQuantity = productDTO.TotalQuantity;
+            product.ModelNumber = productDTO.ModelNumber;
+            product.AvailableQuantity = productDTO.AvailableQuantity;
+            product.StockPrice = productDTO.StockPrice;
 
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));

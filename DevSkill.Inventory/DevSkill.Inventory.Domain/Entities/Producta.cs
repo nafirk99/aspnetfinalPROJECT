@@ -42,5 +42,16 @@ namespace DevSkill.Inventory.Domain.Entities
         public int GroupId { get; set; }
         public Group? Group { get; set; } // Navigation Property For Group
 
+        // Foreign Key for Location
+        public int LocationId { get; set; }
+        public Location? Location { get; set; } // Navigaion Property For Location
+
+        // New Properties
+        public int TotalQuantity { get; set; }  // Total product quantity
+        [MaxLength(100)]
+        public string ModelNumber { get; set; } = "";  // Model number of the product
+        public int AvailableQuantity { get; set; }  // Available product quantity
+        public decimal StockPrice { get; set; }  // Stock price of the product
+
     }
 }

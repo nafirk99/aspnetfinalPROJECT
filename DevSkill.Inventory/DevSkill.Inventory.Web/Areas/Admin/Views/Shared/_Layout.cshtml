@@ -125,6 +125,55 @@
             padding: 2px 16px;
         }
 
+    
+        /*------------------------------Style for the table and columns(Asset)-----------------------------------*/
+        /* Style for the table and columns */
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        /* Set width for description and other columns */
+        td.description-column {
+            max-width: 150px; /* Set a fixed width */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Ellipsis when text overflows */
+        }
+
+            /* Style to show full description on hover */
+            td.description-column:hover {
+                overflow: visible;
+                white-space: normal;
+                word-wrap: break-word;
+                background-color: #f1f1f1; /* Optional: to highlight the hover */
+                z-index: 1; /* Ensure it stays on top of other content */
+                position: relative;
+            }
+
+        /* Adjustments for other column widths */
+        td.asset-column {
+            width: 5%; /* For Asset# column */
+        }
+
+        td.name-column {
+            width: 10%; /* For Name column */
+        }
+
+        td.quantity-column, td.available-column, td.price-column {
+            width: 8%; /* Adjusted widths for quantities and price */
+        }
+
+        td.actions-column {
+            width: 7%; /* Adjust width for action buttons */
+            white-space: nowrap; /* Prevent wrapping */
+        }
+
+        /*-----------------------------------------------------------------*/
+
+
+
+
 
 
     </style>
@@ -206,9 +255,12 @@
                         <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
                         <li><a class="dropdown-item" href="#" style="color:white; background:black;">Add New</a></li>
                             <li><a asp-controller="Productsa" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-box-archive"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset Stock</a></li>
+                            <li><a asp-controller="Productsa" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset Stock</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp;&nbsp;&nbsp;Inventory</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-location-dot fa-beat"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location</a></li>
+                            <li><a asp-controller="Location" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-location-dot fa-beat"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location</a></li>
+                            <li><a asp-controller="Categories" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-layer-group"></i>&nbsp;&nbsp;&nbsp;&nbsp;Category</a></li>
+                            <li><a asp-controller="Group" asp-action="Create" class="dropdown-item"><i class="fa-regular fa-object-group"></i>&nbsp;&nbsp;&nbsp;&nbsp;Group</a></li>
+                            <li><a asp-controller="Vendor" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-building"></i>&nbsp;&nbsp;&nbsp;&nbsp;Vendor</a></li>
                         </ul>
                     </div>
                 </li>
@@ -377,7 +429,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a asp-controller="Productsa" asp-action="AssetStockIndex" class="nav-link">
                                         <i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Asset Stock</p>
                                     </a>

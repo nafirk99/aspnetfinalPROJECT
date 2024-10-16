@@ -36,5 +36,19 @@ namespace DevSkill.Inventory.Domain.Entities
         // Group Handling
         [Required]
         public int GroupId { get; set; }
+
+        // Location Handling
+        [Required]
+        public int LocationId { get; set; }
+
+        // New Columns
+        [Required]
+        public int TotalQuantity { get; set; }
+        [Required]
+        public string ModelNumber { get; set; } = "";
+        [Required]
+        public int AvailableQuantity { get; set; }
+        [Required]
+        public decimal StockPrice { get; set; }
     }
 }
