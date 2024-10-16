@@ -243,5 +243,27 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
+        // Bulk Delete Action
+        [HttpPost]
+        public IActionResult BulkDelete(int[] selectedProducts)
+        {
+            if (selectedProducts == null || selectedProducts.Length == 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Retrieve the selected products
+            var productsToDelete = _context.Productsa
+                .Where(p => selectedProducts.Contains(p.Id))
+                .ToList();
+
+            // Remove selected products
+            _context.Productsa.RemoveRange(productsToDelete);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
