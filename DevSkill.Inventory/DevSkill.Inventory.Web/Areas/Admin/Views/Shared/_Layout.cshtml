@@ -95,6 +95,12 @@
                 color: white; /* Change text color on hover */
             }
 
+        /* Dropdown item hover styling */
+        .dropdown-item:hover {
+            background-color: black; /* Your desired hover background color */
+            color: white; /* Optional: Change text color */
+        }
+
 
         /* Dropdown Right Side */ /*END*/
 
@@ -199,10 +205,10 @@
                         <!-- Dropdown Menu -->
                         <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
                         <li><a class="dropdown-item" href="#" style="color:white; background:black;">Add New</a></li>
-                            <li><a class="dropdown-item" href="#">Asset</a></li>
-                            <li><a class="dropdown-item" href="#">Asset Stock</a></li>
-                            <li><a class="dropdown-item" href="#">Inventory</a></li>
-                            <li><a class="dropdown-item" href="#">Location</a></li>
+                            <li><a asp-controller="Productsa" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-box-archive"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset Stock</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp;&nbsp;&nbsp;Inventory</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-location-dot fa-beat"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location</a></li>
                         </ul>
                     </div>
                 </li>
@@ -365,7 +371,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
+                                    <a asp-controller="Productsa" asp-action="Index" class="nav-link">
                                         <i class="fa-solid fa-box-archive"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Asset</p>
                                     </a>
