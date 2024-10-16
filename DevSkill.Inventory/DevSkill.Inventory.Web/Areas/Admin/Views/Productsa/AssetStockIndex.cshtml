@@ -46,7 +46,11 @@
                     <tbody>
                         @foreach (var product in Model)
                         {
-                            <tr>
+                            // Check if AvailableQuantity is less than 5
+                           // var rowClass = product.AvailableQuantity < 5 ? "text-danger" : "";
+                            string rowClass = product.AvailableQuantity < 5 ? "blinking" : ""; <!-- Apply blinking class if AvailableQuantity < 5 -->
+                            
+                            <tr class="@rowClass">
                                 <td>
                                     <input type="checkbox" name="selectedProducts" value="@product.Id" class="product-checkbox" />
                                 </td>
@@ -60,7 +64,7 @@
                                 <td>@product.StockPrice</td>
                                 <td>@product.CreatedAt.ToString()</td>
                                 <td class="text-nowrap">
-                                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-dark btn-sm">Edit</a>
+                                    <a asp-action="AssetStockEdit" asp-route-id="@product.Id" class="btn btn-dark btn-sm">Edit</a>
                                     <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
                                 </td>
                             </tr>
@@ -70,7 +74,7 @@
             </form>
 
             <!-- Create new product button -->
-            <a asp-action="Create" class="btn btn-dark">Add New Product</a>
+            <a asp-action="AssetStockCreate" class="btn btn-dark">Add New Product</a>
         </div>
     </div>
 </div>
