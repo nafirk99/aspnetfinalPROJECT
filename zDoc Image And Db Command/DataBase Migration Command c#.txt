@@ -1,0 +1,93 @@
+tool install(error fix)
+dotnet tool install --global dotnet-ef --version 7.0
+
+Migration>>
+dotnet ef migrations add AddedStudentTable --project EntityPractice2 --context AppDbContext
+
+Database Update>>
+dotnet ef database update --project EntityPractice2 --context AppDbContext
+
+RemoveMigration>>
+dotnet ef database update "NameofMigrationToGoTo" --project EntityPractice2 --context AppDbContext  |Removes From DB|
+
+dotnet ef migrations remove --project EntityPractice2 --context AppDbContext  |Removes From MIgration Folder In (VS)|
+
+
+"DefaultConnection": "Server=.\\SQLEXPRESS;Database=aspa10;User Id=aspnetb10;Password=123456;Trust Server Certificate=True"
+
+
+//
+dotnet ef migrations add AddAINVendorGroupToProducta --project DevSkill.Inventory.Web --context InventoryDbContext
+dotnet ef database update --project DevSkill.Inventory.Web --context InventoryDbContext
+
+
+
+dotnet ef migrations add AddTquantityModelAquantityStockPLocation --project DevSkill.Inventory.Web --context InventoryDbContext
+dotnet ef migrations add AddItemBundlePackage --project DevSkill.Inventory.Web --context InventoryDbContext
+
+MakePackageAndBundleIdNullable
+
+dotnet ef migrations add MakePackageAndBundleIdNullable --project DevSkill.Inventory.Web --context InventoryDbContext
+
+
+
+
+
+
+
+
+
+
+
+
+public class Animal
+{
+ Id
+ Specie
+ Age
+ PurchasePrice
+ SellPrice?
+ SellerId
+ CageId
+}
+
+public class Fish
+{
+ Id
+ Specie
+ Age
+ PurchasePrice
+ SellPrice?
+ SellerId
+ AquariumId
+}
+
+public class Cage
+{
+ Id
+ FeedingStatus
+}
+
+public class Aquarium
+{
+ Id
+ FeedingStatus
+}
+
+hohr@progressivelife.com.bd
+
+admd md
+
+
+
+    "DefaultConnection": "Server=.\\SQLEXPRESS;Database=aspnetb10;User Id=aspa3;Password=123456;Trust Server Certificate=True"
+
+
+
+
+
+
+
+
+
+
