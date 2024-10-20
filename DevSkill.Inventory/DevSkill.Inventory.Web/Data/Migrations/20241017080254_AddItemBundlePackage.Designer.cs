@@ -4,16 +4,19 @@ using DevSkill.Inventory.Infrastructutre;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DevSkill.Inventory.Web.Data.Migrations
+namespace DevSkill.Inventory.Web.Migrations.InventoryDb
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class ProductDbCntextModelSnapshot : ModelSnapshot
+    [Migration("20241017080254_AddItemBundlePackage")]
+    partial class AddItemBundlePackage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,7 +98,7 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("BundleId")
+                    b.Property<int>("BundleId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
@@ -262,7 +265,7 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("PackageId")
+                    b.Property<int>("PackageId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -315,7 +318,8 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Bundle", "Bundle")
                         .WithMany("Items")
                         .HasForeignKey("BundleId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Category", "Category")
                         .WithMany()
@@ -351,7 +355,8 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Package", "Package")
                         .WithMany("Productas")
                         .HasForeignKey("PackageId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Vendor", "Vendor")
                         .WithMany("Products")

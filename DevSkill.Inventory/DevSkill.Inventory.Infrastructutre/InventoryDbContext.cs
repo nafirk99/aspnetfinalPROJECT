@@ -55,6 +55,21 @@ namespace DevSkill.Inventory.Infrastructutre
                 .HasForeignKey(p => p.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
+            // One-to-many relationship between Package and Producta (Asset)
+            modelBuilder.Entity<Producta>()
+                .HasOne(pr => pr.Package)
+                .WithMany(pa => pa.Productas)
+                .HasForeignKey(pr => pr.PackageId)
+                .OnDelete(DeleteBehavior.Restrict);   // Restrict deletion if a Package has assets
+
+            // One-to-many relationship between Bundle and Item
+            modelBuilder.Entity<Item>()
+                .HasOne(I => I.Bundle)
+                .WithMany(B => B.Items)
+                .HasForeignKey(I => I.BundleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -67,5 +82,10 @@ namespace DevSkill.Inventory.Infrastructutre
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Location> Locations { get; set; }
+
+        // New DbSet added On 17th Oct
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<Bundle> Bundles { get; set; }
     }
 }

@@ -22,6 +22,10 @@ namespace DevSkill.Inventory.Domain.Entities
 
         public DateTime CreatedAt { get; set; }
 
+        // Foreign key to Package
+        public int? PackageId { get; set; }  // PackageId Nullable Asset belongs to one package
+        public Package? Package { get; set; }  // Navigation property
+
         // Foreign key to Category
         public int CategoryId { get; set; }
         public Category? Category { get; set; }  // Navigation property

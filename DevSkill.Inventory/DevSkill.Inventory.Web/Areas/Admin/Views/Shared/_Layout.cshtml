@@ -269,7 +269,7 @@
                         <li><a class="dropdown-item" href="#" style="color:white; background:black;">Add New</a></li>
                             <li><a asp-controller="Productsa" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-box-archive"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset</a></li>
                             <li><a asp-controller="Productsa" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset Stock</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp;&nbsp;&nbsp;Inventory</a></li>
+                            <li><a asp-controller="Item" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp;&nbsp;&nbsp;Inventory</a></li>
                             <li><a asp-controller="Location" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-location-dot fa-beat"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location</a></li>
                             <li><a asp-controller="Categories" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-layer-group"></i>&nbsp;&nbsp;&nbsp;&nbsp;Category</a></li>
                             <li><a asp-controller="Group" asp-action="Create" class="dropdown-item"><i class="fa-regular fa-object-group"></i>&nbsp;&nbsp;&nbsp;&nbsp;Group</a></li>
@@ -437,37 +437,43 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a asp-controller="Productsa" asp-action="Index" class="nav-link">
-                                        <i class="fa-solid fa-box-archive"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-box-archive" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Asset</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="Productsa" asp-action="AssetStockIndex" class="nav-link">
-                                        <i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-boxes-stacked" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Asset Stock</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
-                                        <i class="fa-solid fa-cubes"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a asp-controller="Item" asp-action="Index" class="nav-link">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-cubes" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Inventory</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="./index2.html" class="nav-link">
-                                        <i class="fa-solid fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-gift" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Packages</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="./index2.html" class="nav-link">
-                                        <i class="fa-solid fa-layer-group"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-layer-group" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Bundles</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="./index2.html" class="nav-link">
-                                        <i class="fa-solid fa-gear"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-gear" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <p class="font-for-sidebar-title">Groups</p>
                                     </a>
                                 </li>
