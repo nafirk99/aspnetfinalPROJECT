@@ -154,7 +154,7 @@
                     <th scope="col">Asset Name</th>
                     <th scope="col">Brand</th>
                     <th scope="col">Price</th>
-                    
+                    <th scope="col">Package ID</th> <!-- New column for Package ID -->
                 </tr>
             </thead>
             <tbody>
@@ -171,7 +171,16 @@
                         <td>@Model.Assets[i].AssetName</td>
                         <td>@Model.Assets[i].Brand</td>
                         <td>@Model.Assets[i].Price.ToString("C")</td>
+                        @* <td>@Model.Assets[i].PackageId</td> <!-- Display the PackageId, or indicate if it's not assigned --> *@
                         
+                            @if (Model.Assets[i].PackageId == null)
+                            {
+                            <td style="color: green">Not assigned</td>
+                            }
+                            else
+                            {
+                            <td style="color: red">@Model.Assets[i].PackageId</td>
+                            }
                     </tr>
                 }
             </tbody>
