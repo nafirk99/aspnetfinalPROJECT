@@ -13,5 +13,7 @@ namespace DevSkill.Inventory.Domain.Entities
 
         // List of assets that can be selected (with checkboxes)
         public List<AssetCheckboxViewModel> Assets { get; set; } = new List<AssetCheckboxViewModel>();
+
+        
     }
 }

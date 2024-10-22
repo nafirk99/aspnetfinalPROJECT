@@ -41,7 +41,9 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     AssetName = a.Name,
                     Brand = a.Brand,
                     Price = a.Price,
-                    IsSelected = false
+                    IsSelected = false,
+                    PackageId = a.PackageId  // Include PackageId here
+
                 }).ToList()
             };
             return View(viewModel);
@@ -113,6 +115,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             // Create the view model for the edit page
             var viewModel = new PackageViewModel
             {
+                
                 PackageNumber = package.PackageNumber,
                 Assets = allAssets.Select(a => new AssetCheckboxViewModel
                 {
@@ -120,7 +123,8 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     AssetName = a.Name,
                     Brand = a.Brand,
                     Price = a.Price,
-                    IsSelected = package.Productas.Any(pa => pa.Id == a.Id) // Check if this asset is already assigned to the package
+                    IsSelected = package.Productas.Any(pa => pa.Id == a.Id), // Check if this asset is already assigned to the package
+                    PackageId = a.PackageId
                 }).ToList()
             };
 
@@ -179,6 +183,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 AssetName = a.Name,
                 Brand = a.Brand,
                 Price = a.Price,
+                
                 IsSelected = package.Productas.Any(pa => pa.Id == a.Id) // Check if this asset is already assigned to the package
             }).ToList();
 

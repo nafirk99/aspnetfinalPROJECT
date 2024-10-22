@@ -13,5 +13,7 @@ namespace DevSkill.Inventory.Domain.Entities
         public string Brand { get; set; }
         public decimal Price { get; set; }
         public bool IsSelected { get; set; }  // To check if the asset is selected for this package
+
+        public int? PackageId { get; set; }  // Nullable to reflect that some assets might not belong to any package
     }
 }
