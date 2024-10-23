@@ -2,6 +2,7 @@
 using DevSkill.Inventory.Infrastructutre;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using NuGet.ContentModel;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
@@ -19,9 +20,17 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         // List all packages
         public async Task<IActionResult> Index()
         {
+            //// Use Include() to load the related Productas (assets) for each package
+            //var packages = await _context.Packages
+            //    .Include(p => p.Productas)  // Include the Productas (assets)
+            //    .ToListAsync();
+
+            //return View(packages);
+
             // Use Include() to load the related Productas (assets) for each package
             var packages = await _context.Packages
-                .Include(p => p.Productas)  // Include the Productas (assets)
+                .Include(p => p.Productas)
+                .Where(p => p.Productas.Any(a => a.AvailableQuantity > 0))  // Only show packages with available assets
                 .ToListAsync();
 
             return View(packages);
@@ -238,6 +247,87 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             // Redirect to the package index page
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(List<int> selectedPackages)
+        {
+            if (selectedPackages == null || selectedPackages.Count == 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Fetch selected packages with their assets
+            var packages = await _context.Packages
+                .Where(p => selectedPackages.Contains(p.Id))
+                .Include(p => p.Productas)
+                .ToListAsync();
+
+            // Calculate the total price
+            var totalAmount = packages.Sum(p => p.Productas.Sum(a => a.Price * a.AvailableQuantity));
+
+            // Prepare the CheckoutViewModel
+            var checkoutViewModel = new CheckoutViewModel
+            {
+                SelectedPackageIds = selectedPackages,
+                TotalAmount = totalAmount,
+                Packages = packages
+
+            };
+
+            return View(checkoutViewModel);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmCheckout(CheckoutViewModel model)
+        {
+            if (model.SelectedPackageIds == null || model.SelectedPackageIds.Count == 0)
+            {
+                return RedirectToAction(nameof(Index)); // Redirect if no packages are selected
+            }
+
+            // Fetch selected packages with their assets
+            var packages = await _context.Packages
+                .Where(p => model.SelectedPackageIds.Contains(p.Id))
+                .Include(p => p.Productas)
+                .ToListAsync();
+
+            // Deduct inventory for each package's assets and check for out-of-stock items
+            foreach (var package in packages)
+            {
+                foreach (var asset in package.Productas)
+                {
+                    var newQuantity = asset.AvailableQuantity - 1;
+
+                    // Check for stock availability
+                    if (newQuantity < 0)
+                    {
+                        // Log the out-of-stock situation
+                        Console.WriteLine($"Out of stock for Asset: {asset.Name} in Package: {package.PackageNumber}");
+                        return BadRequest("One or more items in your package are out of stock.");
+                    }
+
+                    asset.AvailableQuantity = newQuantity;
+                    _context.Entry(asset).State = EntityState.Modified; // Ensure tracking state
+                }
+            }
+
+            // Save changes to update inventory in the database
+            await _context.SaveChangesAsync();
+
+            // Prepare a confirmation view model
+            var confirmationViewModel = new ConfirmationViewModel
+            {
+                Packages = packages,
+                TotalAmount = model.TotalAmount,
+                PaymentStatus = "Success"
+            };
+
+            // Render the ConfirmCheckout view with the confirmationViewModel
+            return View("ConfirmCheckout", confirmationViewModel);
+        }
+
+
 
 
 
