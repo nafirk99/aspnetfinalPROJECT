@@ -1,0 +1,146 @@
+﻿@model IPagedList<DevSkill.Inventory.Domain.Entities.Producta>
+
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="p-4">
+            <!-- Flexbox row for Products List and Search -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2><b>Asset List</b></h2>
+                <!-- Search form aligned to the right -->
+                <form asp-action="AssetStockIndex" method="get" class="form-inline">
+                    <div class="form-group mx-sm-3">
+                        <input type="text" name="searchString" class="form-control" placeholder="Search Products"
+                               value="@ViewData["Filter"]" />
+                    </div>
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </form>
+            </div>
+
+            <!-- Bulk Delete Button -->
+            <form asp-action="BulkDelete" method="post" id="bulkDeleteForm">
+                <button type="submit" class="btn btn-danger mb-3" id="bulkDeleteBtn" disabled>Delete Selected</button>
+
+                <!-- Products Table -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="width: 1%;">
+                                <input type="checkbox" id="selectAll" /> <!-- Checkbox header -->
+                            </th>
+                            <th class="asset-column">Asset#</th>
+                            <th class="name-column">Name</th>
+                            <th class="description-column">Description</th>
+                            <th class="quantity-column">Total Quantity</th>
+                            <th>Location</th>
+                            <th style="width: 5%;">Model</th>
+                            <th class="available-column">Available Quantity</th>
+                            <th class="price-column">Stock Price</th>
+                            <th style="width: 11%;">Creation Date</th>
+                            <th class="actions-column">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            string rowClass = product.AvailableQuantity < 5 ? "blinking" : "";
+                            <!-- Apply blinking class if AvailableQuantity < 5 -->
+
+                            <tr class="@rowClass">
+                                <td>
+                                    <input type="checkbox" name="selectedProducts" value="@product.Id" class="product-checkbox" />
+                                </td>
+                                <td>@product.Id</td>
+                                <td>@product.Name</td>
+                                <td class="description-column" title="@product.Description">@product.Description</td> <!-- Description column with hover -->
+                                <td>@product.TotalQuantity</td>
+                                <td>@product.Location?.Name</td>
+                                <td>@product.ModelNumber</td>
+                                <td>@product.AvailableQuantity</td>
+                                <td>@product.StockPrice</td>
+                                <td>@product.CreatedAt.ToString()</td>
+                                <td class="text-nowrap">
+                                    <a asp-action="AssetStockEdit" asp-route-id="@product.Id" class="btn btn-dark btn-sm">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+
+            @* <!-- Pagination (aligns to bottom right) -->
+            <div class="d-flex justify-content-end mt-3">
+                @Html.PagedListPager(Model, page => Url.Action("AssetStockIndex", new { page, searchString = ViewData["Filter"] }))
+            </div> *@
+
+
+            <!-- Pagination (aligns to bottom right) -->
+            <div class="d-flex justify-content-end mt-3">
+                @Html.PagedListPager(
+                         Model,
+                         page => Url.Action("AssetStockIndex", new { page, searchString = ViewData["Filter"] }),
+                         new PagedListRenderOptions
+                {
+                    LinkToPreviousPageFormat = "Previous",
+                    LinkToNextPageFormat = "Next",
+                    LinkToFirstPageFormat = "First",
+                    LinkToLastPageFormat = "Last",
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    DisplayPageCountAndCurrentLocation = false,
+                    MaximumPageNumbersToDisplay = 5,
+                    ContainerDivClasses = new[] { "pagination" },
+                    UlElementClasses = new[] { "pagination" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    
+                    ClassToApplyToFirstListItemInPager = "page-item"
+                })
+            </div>
+
+
+
+
+
+
+            <!-- Create new product button -->
+            <a asp-action="AssetStockCreate" class="btn btn-dark">Add New Product</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Enable bulk delete button only when at least one checkbox is selected
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+        const selectAllCheckbox = document.getElementById('selectAll');
+
+        function toggleBulkDeleteButton() {
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            bulkDeleteBtn.disabled = !anyChecked;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleBulkDeleteButton);
+        });
+
+        // Select/Deselect all checkboxes
+        selectAllCheckbox.addEventListener('change', function () {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            toggleBulkDeleteButton();
+        });
+    </script>
+}
