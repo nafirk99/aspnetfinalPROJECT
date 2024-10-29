@@ -79,7 +79,12 @@
 
 
 <!-- ------------------------------------------------------------------------------------------------------------ -->
-@model IEnumerable<DevSkill.Inventory.Domain.Entities.Producta>
+@model IPagedList<DevSkill.Inventory.Domain.Entities.Producta>
+
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+
 
 @{
     ViewData["Title"] = "Product List";
@@ -153,6 +158,36 @@
                     </tbody>
                 </table>
             </form>
+
+            <!-- Pagination (aligns to bottom right) -->
+            <div class="d-flex justify-content-end mt-3">
+                @Html.PagedListPager(
+                         Model,
+                         page => Url.Action("AssetStockIndex", new { page, searchString = ViewData["Filter"] }),
+                         new PagedListRenderOptions
+                {
+                    LinkToPreviousPageFormat = "Previous",
+                    LinkToNextPageFormat = "Next",
+                    LinkToFirstPageFormat = "First",
+                    LinkToLastPageFormat = "Last",
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    DisplayPageCountAndCurrentLocation = false,
+                    MaximumPageNumbersToDisplay = 5,
+                    ContainerDivClasses = new[] { "pagination" },
+                    UlElementClasses = new[] { "pagination" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+
+                    ClassToApplyToFirstListItemInPager = "page-item"
+                })
+            </div>
+
+
+
+
 
             <!-- Create new product button -->
             <a asp-action="Create" class="btn btn-dark">Add New Product</a>
