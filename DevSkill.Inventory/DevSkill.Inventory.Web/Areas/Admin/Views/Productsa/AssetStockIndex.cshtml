@@ -1,4 +1,8 @@
-﻿@model IEnumerable<DevSkill.Inventory.Domain.Entities.Producta>
+﻿@model IPagedList<DevSkill.Inventory.Domain.Entities.Producta>
+
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
 
 @{
     ViewData["Title"] = "Product List";
@@ -39,6 +43,7 @@
                             <th style="width: 5%;">Model</th>
                             <th class="available-column">Available Quantity</th>
                             <th class="price-column">Stock Price</th>
+                            <th scope="col" style="width: 1%;">Image</th>
                             <th style="width: 11%;">Creation Date</th>
                             <th class="actions-column">Actions</th>
                         </tr>
@@ -46,10 +51,9 @@
                     <tbody>
                         @foreach (var product in Model)
                         {
-                            // Check if AvailableQuantity is less than 5
-                           // var rowClass = product.AvailableQuantity < 5 ? "text-danger" : "";
-                            string rowClass = product.AvailableQuantity < 5 ? "blinking" : ""; <!-- Apply blinking class if AvailableQuantity < 5 -->
-                            
+                            string rowClass = product.AvailableQuantity < 5 ? "blinking" : "";
+                            <!-- Apply blinking class if AvailableQuantity < 5 -->
+
                             <tr class="@rowClass">
                                 <td>
                                     <input type="checkbox" name="selectedProducts" value="@product.Id" class="product-checkbox" />
@@ -62,6 +66,7 @@
                                 <td>@product.ModelNumber</td>
                                 <td>@product.AvailableQuantity</td>
                                 <td>@product.StockPrice</td>
+                                <td class="grow"><img src="/Products/@product.ImageFileName" width="100" /></td>
                                 <td>@product.CreatedAt.ToString()</td>
                                 <td class="text-nowrap">
                                     <a asp-action="AssetStockEdit" asp-route-id="@product.Id" class="btn btn-dark btn-sm">Edit</a>
@@ -72,6 +77,43 @@
                     </tbody>
                 </table>
             </form>
+
+            @* <!-- Pagination (aligns to bottom right) -->
+            <div class="d-flex justify-content-end mt-3">
+                @Html.PagedListPager(Model, page => Url.Action("AssetStockIndex", new { page, searchString = ViewData["Filter"] }))
+            </div> *@
+
+
+            <!-- Pagination (aligns to bottom right) -->
+            <div class="d-flex justify-content-end mt-3">
+                @Html.PagedListPager(
+                         Model,
+                         page => Url.Action("AssetStockIndex", new { page, searchString = ViewData["Filter"] }),
+                         new PagedListRenderOptions
+                {
+                    LinkToPreviousPageFormat = "Previous",
+                    LinkToNextPageFormat = "Next",
+                    LinkToFirstPageFormat = "First",
+                    LinkToLastPageFormat = "Last",
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    DisplayPageCountAndCurrentLocation = false,
+                    MaximumPageNumbersToDisplay = 5,
+                    ContainerDivClasses = new[] { "pagination" },
+                    UlElementClasses = new[] { "pagination" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                    
+                    ClassToApplyToFirstListItemInPager = "page-item"
+                })
+            </div>
+
+
+
+
+
 
             <!-- Create new product button -->
             <a asp-action="AssetStockCreate" class="btn btn-dark">Add New Product</a>

@@ -3,6 +3,8 @@ using DevSkill.Inventory.Infrastructutre;
 using DevSkill.Inventory.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
@@ -36,7 +38,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
 
         // New INdex Action
-        public IActionResult Index(string searchString)
+        public IActionResult Index(string searchString, int? page, int pageSize = 10)
         {
             // Storing the Current search query in the ViewData so taht we can use it in the view  
             ViewData["Filter"] = searchString;
@@ -53,11 +55,18 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             {
                 products = _context.Productsa.Where(p => p.Name.Contains(searchString));
             }
-            return View(products);
+
+            int pageNumber = page ?? 1; // Default to page 1 if no page is specified
+            var pagedProducts = products.ToPagedList(pageNumber, pageSize);
+            ViewBag.PageSize = pageSize;
+
+            return View(pagedProducts);
         }
 
-        public IActionResult AssetStockIndex(string searchString)
+        public IActionResult AssetStockIndex(string searchString, int? page, int pageSize = 10)
         {
+           
+
             // Storing the Current search query in the ViewData so taht we can use it in the view  
             ViewData["Filter"] = searchString;
 
@@ -73,7 +82,11 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             {
                 products = _context.Productsa.Where(p => p.Name.Contains(searchString));
             }
-            return View(products);
+            int pageNumber = page ?? 1; // Default to page 1 if no page is specified
+            var pagedProducts = products.ToPagedList(pageNumber, pageSize);
+
+            ViewBag.PageSize = pageSize;
+            return View(pagedProducts);
         }
 
 

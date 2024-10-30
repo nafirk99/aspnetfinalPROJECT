@@ -127,7 +127,7 @@
                             <th scope="col">Vendor</th>
                             <th scope="col">Group</th>
                             <th scope="col">Category</th>
-                            <th scope="col" style="width: 5%;">Image</th>
+                            <th scope="col" style="width: 1%;">Image</th>
                             <th scope="col" style="width: 1%;">Actions</th>
                         </tr>
                     </thead>
@@ -148,7 +148,7 @@
                                 <td>@product.Vendor?.Name</td>
                                 <td>@product.Group?.Name</td>
                                 <td>@product.Category?.Name</td>
-                                <td><img src="/Products/@product.ImageFileName" width="100" /></td>
+                                <td class="grow"><img src="/Products/@product.ImageFileName" width="100" /></td>
                                 <td class="text-nowrap">
                                     <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-dark btn-sm">Edit</a>
                                     <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>

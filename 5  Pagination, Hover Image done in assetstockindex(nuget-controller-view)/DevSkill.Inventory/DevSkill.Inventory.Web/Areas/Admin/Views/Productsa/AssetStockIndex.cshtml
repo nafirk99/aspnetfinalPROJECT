@@ -43,6 +43,7 @@
                             <th style="width: 5%;">Model</th>
                             <th class="available-column">Available Quantity</th>
                             <th class="price-column">Stock Price</th>
+                            <th scope="col" style="width: 1%;">Image</th>
                             <th style="width: 11%;">Creation Date</th>
                             <th class="actions-column">Actions</th>
                         </tr>
@@ -65,6 +66,7 @@
                                 <td>@product.ModelNumber</td>
                                 <td>@product.AvailableQuantity</td>
                                 <td>@product.StockPrice</td>
+                                <td class="grow"><img src="/Products/@product.ImageFileName" width="100" /></td>
                                 <td>@product.CreatedAt.ToString()</td>
                                 <td class="text-nowrap">
                                     <a asp-action="AssetStockEdit" asp-route-id="@product.Id" class="btn btn-dark btn-sm">Edit</a>

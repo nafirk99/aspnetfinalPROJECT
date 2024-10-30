@@ -5,6 +5,7 @@ namespace DevSkill.Inventory.Domain.Entities
 {
     public class Producta
     {
+        
         public int Id { get; set; }   // Will Make It as Asset Stock #
 
         [Required, MaxLength(100)]
