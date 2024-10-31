@@ -1,0 +1,33 @@
+﻿@import "./header";
+
+.btn {
+    background-color: $btnColor;
+}
+
+.link {
+    color: $btnColor;
+}
+
+
+div {
+    background-color: red;
+
+    button {
+        background-color: green;
+
+        &:hover {
+            background-color: blue;
+        }
+    }
+}
+
+@function function_name($parameters) {
+    // code block
+
+    @return $parameters;
+}
+
+.header {
+    background-color: function_name(red);
+}
+
