@@ -1,0 +1,194 @@
+﻿@* @model IEnumerable<DevSkill.Inventory.Domain.Entities.Package>
+
+    <h2>Package List</h2>
+    <table class="table">
+        <thead>
+              <tr>
+                    <th>Package Number</th>
+                    <th>Created At</th>
+                    <th>Assets</th>
+                    <th>Actions</th>
+             </tr>
+            
+        </thead>
+        <tbody>
+            @foreach (var package in Model)
+            {
+            <tr>
+                    <td>@package.PackageNumber</td>
+                    <td>@package.CreatedAt</td>
+                    <td>@package.Productas.Count.ToString()</td>
+                    <td>
+                         <a href="@Url.Action("Edit", new { id = package.Id })">Edit</a>
+                         <a href="@Url.Action("Delete", new { id = package.Id })">Delete</a>
+                    </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+<a href="@Url.Action("Create")" class="btn btn-primary">Create Package</a> *@
+
+
+
+
+
+
+
+
+
+
+
+
+@* @model IEnumerable<DevSkill.Inventory.Domain.Entities.Package>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="p-4">
+            <!-- Flexbox row for Package List and Search -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2><b>Package List</b></h2>
+                <!-- Search form aligned to the right -->
+                <form asp-action="Index" method="get" class="form-inline">
+                    <div class="form-group mx-sm-3">
+                        <input type="text" name="searchString" class="form-control" placeholder="Search Packages" value="@ViewData["Filter"]" />
+                    </div>
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </form>
+            </div>
+
+            <!-- Bulk Delete Button (if you plan to add bulk actions in the future) -->
+            <form asp-action="BulkDelete" method="post" id="bulkDeleteForm">
+                <button type="submit" class="btn btn-danger mb-3" id="bulkDeleteBtn" disabled>Delete Selected</button>
+
+                <!-- Packages Table -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="width: 1%;">
+                                <input type="checkbox" id="selectAll" /> <!-- Checkbox header for bulk delete -->
+                            </th>
+                            <th scope="col">Package Number</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Assets Count</th>
+                            <th style="width: 1%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var package in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="selectedPackages" value="@package.Id" class="package-checkbox" />
+                                </td>
+                                <td>@package.PackageNumber</td>
+                                <td>@package.CreatedAt.ToString("MM/dd/yyyy")</td>
+                                <td>@package.Productas.Count.ToString()</td>
+                                <td class="text-nowrap">
+                                    <a href="@Url.Action("Edit", new { id = package.Id })" class="btn btn-dark btn-sm">Edit</a>
+                                    <a href="@Url.Action("Delete", new { id = package.Id })" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                                    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+
+            <!-- Create new package button -->
+            <a href="@Url.Action("Create")" class="btn btn-dark">Create Package</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Enable bulk delete button only when at least one checkbox is selected
+        const checkboxes = document.querySelectorAll('.package-checkbox');
+        const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+        const selectAllCheckbox = document.getElementById('selectAll');
+
+        function toggleBulkDeleteButton() {
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            bulkDeleteBtn.disabled = !anyChecked;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleBulkDeleteButton);
+        });
+
+        // Select/Deselect all checkboxes
+        selectAllCheckbox.addEventListener('change', function () {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            toggleBulkDeleteButton();
+        });
+    </script>
+} *@
+
+
+
+
+
+
+
+@model List<DevSkill.Inventory.Domain.Entities.Package>
+
+@{
+    ViewBag.Title = "Packages";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="p-4">
+        <h2><b>Available Packages</b></h2>
+            <form asp-action="Checkout" method="post">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="width: 1%;">
+                                <input type="checkbox" id="select-all" /> <!-- Select All Checkbox -->
+                            </th>
+                            <th scope="col">Package Number</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Number of Assets</th>
+                            <th style="width: 1%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var package in Model)
+                        {
+                            string rowClass = package.Productas.Count == 0 ? "red" : "green";
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="selectedPackages" value="@package.Id" />
+                                </td>
+                                <td>@package.PackageNumber</td>
+                                <td>@package.CreatedAt.ToShortDateString()</td>
+                                <td style="color:@rowClass">@package.Productas.Count</td>
+                                <td class="text-nowrap">
+                                    <a href="@Url.Action("Edit", new { id = package.Id })" class="btn btn-dark btn-sm">Edit</a>
+                                    <a href="@Url.Action("Delete", new { id = package.Id })" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-dark">Proceed to Checkout</button>
+                <a href="@Url.Action("Create")" class="btn btn-dark">Create New Package</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Script to select/deselect all checkboxes
+    document.getElementById('select-all').onclick = function () {
+        var checkboxes = document.querySelectorAll('input[name="selectedPackages"]');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    };
+</script>

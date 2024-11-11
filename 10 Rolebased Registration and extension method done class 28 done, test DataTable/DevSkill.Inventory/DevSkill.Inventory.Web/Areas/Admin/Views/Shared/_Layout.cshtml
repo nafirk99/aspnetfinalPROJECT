@@ -1,0 +1,823 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] | EZO </title>
+
+    <!--Data Table-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!--Favicor Icon Added On the Tab-->
+    <link rel="icon" type="image/x-icon" href="~/ez favicon-32x32.png" />
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/adminlte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/adminlte/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/adminlte/plugins/summernote/summernote-bs4.min.css">
+
+    <!--FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+
+   
+
+
+    <style>
+        
+
+
+        /* Icon Styling */
+        .icon-hover {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 60%;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .icon-hover:hover {
+                background-color:darkgray;
+            }
+
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Adjust dropdown position */
+        .dropdown-menu {
+            margin-top: 5px;
+        }
+
+        /* font-for-sidebar-title */
+        .font-for-sidebar-title{
+            font-size: 18px;
+            border-left: 8px;
+        }
+        
+
+
+        /*--------------- Dropdown Right Side--------------- */   /*START*/
+        .brand-wrapper:hover .dropdownn-menu {
+            display: block; /* Show dropdown on hover */
+        }
+
+        .dropdownn-menu {
+            /* Optional: Customize the dropdown appearance */
+            padding: 0; /* Remove padding for dropdown */
+            border-radius: 0; /* Optional: Remove border radius */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Optional: Add shadow */
+        }
+
+        .dropdownn-item {
+            padding: 10px 15px; /* Add some padding */
+        }
+
+            .dropdownn-item:hover {
+                background-color: #007bff; /* Change background on hover */
+                color: white; /* Change text color on hover */
+            }
+
+        /* Dropdown item hover styling */
+        .dropdown-item:hover {
+            background-color: black; /* Your desired hover background color */
+            color: white; /* Optional: Change text color */
+        }
+
+
+        /* Dropdown Right Side */ /*END*/
+
+
+        /* Card Design */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        img {
+            border-radius: 5px 5px 0 0;
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+    
+        /*------------------------------Style for the table and columns(Asset)-----------------------------------*/
+        /* Style for the table and columns */
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        /* Set width for description and other columns */
+        td.description-column {
+            max-width: 150px; /* Set a fixed width */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Ellipsis when text overflows */
+        }
+
+            /* Style to show full description on hover */
+            td.description-column:hover {
+                overflow: visible;
+                white-space: normal;
+                word-wrap: break-word;
+                background-color: #f1f1f1; /* Optional: to highlight the hover */
+                z-index: 1; /* Ensure it stays on top of other content */
+                position: relative;
+            }
+
+        /* Adjustments for other column widths */
+        td.asset-column {
+            width: 5%; /* For Asset# column */
+        }
+
+        td.name-column {
+            width: 10%; /* For Name column */
+        }
+
+        td.quantity-column, td.available-column, td.price-column {
+            width: 8%; /* Adjusted widths for quantities and price */
+        }
+
+        td.actions-column {
+            width: 7%; /* Adjust width for action buttons */
+            white-space: nowrap; /* Prevent wrapping */
+        }
+
+        /*-----------------------------------------------------------------*/
+
+
+        /*-------------------------------Low Stock BlinkingAlert----------------------------------*/
+        .blinking {
+        color: red;
+        animation: blinker 2s linear infinite; /* Infinite blinking */
+         }
+
+         @@keyframes blinker {
+        50% {
+            opacity: 30%; /* Make text disappear and reappear */
+        }
+        }
+        /*----------------------------------------------------------------------------------------*/
+
+
+
+        /*Grow Image*/
+        .grow img 
+        {
+            transition: 1s ease;
+        }
+
+            .grow img:hover
+        {
+             
+            -webkit-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            transform: scale(2.2);
+            transition: 1s ease;
+        }
+
+        
+        /* Style TEST FOR CREATE DESIGN */
+        .contact-form .form-field {
+            position: relative;
+            margin: 32px 0;
+        }
+
+        .contact-form .input-text {
+            display: block;
+            width: 100%;
+            height: 36px;
+            border-width: 0 0 2px 0;
+            border-color: #5543ca;
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 400;
+        }
+
+            .contact-form .input-text:focus {
+                outline: none;
+            }
+
+                .contact-form .input-text:focus + .label,
+                .contact-form .input-text.not-empty + .label {
+                    transform: translateY(-24px);
+                }
+
+        .contact-form .label {
+            position: absolute;
+            left: 20px;
+            bottom: 11px;
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 400;
+            color: #5543ca;
+            cursor: text;
+            transition: transform .2s ease-in-out;
+        }
+
+        .contact-form .submit-btn {
+            display: inline-block;
+            background-color: #000;
+            background-image: linear-gradient(125deg,#a72879,#064497);
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 16px;
+            padding: 8px 16px;
+            border: none;
+            width: 200px;
+            cursor: pointer;
+        }
+
+
+        
+
+
+    </style>
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="~/adminlte/img/EZ preloader-192x192.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light elevation-2">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a asp-area="Admin" asp-controller="Productsa" asp-action="Index"  class="nav-link">Products</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a asp-area="Admin" asp-controller="Categories" asp-action="Index"  class="nav-link">Category</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+
+                
+                <!-- Quick Actions Dropdown -->
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <!-- Circle Icon -->
+                        <div class="icon-hover" id="hoverDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-lightning"></i>
+                        </div>
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
+                            <li><a class="dropdown-item" href="#" style="color:white; background:black;">Quick Actions</a></li>
+                            <li><a class="dropdown-item" href="#">Quick Checkout</a></li>
+                            <li><a class="dropdown-item" href="#">Read Blog</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Addnew Menu Dropdown -->
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <!-- Circle Icon -->
+                        <div class="icon-hover" id="hoverDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
+                        <li><a class="dropdown-item" href="#" style="color:white; background:black;">Add New</a></li>
+                            <li><a asp-controller="Productsa" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-box-archive"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset</a></li>
+                            <li><a asp-controller="Productsa" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-boxes-stacked"></i>&nbsp;&nbsp;&nbsp;&nbsp;Asset Stock</a></li>
+                            <li><a asp-controller="Item" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-cubes"></i>&nbsp;&nbsp;&nbsp;&nbsp;Inventory</a></li>
+                            <li><a asp-controller="Location" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-location-dot fa-beat"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location</a></li>
+                            <li><a asp-controller="Categories" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-layer-group"></i>&nbsp;&nbsp;&nbsp;&nbsp;Category</a></li>
+                            <li><a asp-controller="Group" asp-action="Create" class="dropdown-item"><i class="fa-regular fa-object-group"></i>&nbsp;&nbsp;&nbsp;&nbsp;Group</a></li>
+                            <li><a asp-controller="Vendor" asp-action="Create" class="dropdown-item"><i class="fa-solid fa-building"></i>&nbsp;&nbsp;&nbsp;&nbsp;Vendor</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Avaliability Center Menu Dropdown -->
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <!-- Circle Icon -->
+                        <div class="icon-hover" id="hoverDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-calendar2-event"></i>
+                        </div>
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
+                            <li><a class="dropdown-item" href="#" style="color:white; background:black;">AVAILABILITY CENTER</a></li>
+                            <li><a class="dropdown-item" href="#">Check Item's Availability'</a></li>
+                            <li><a class="dropdown-item" href="#">Availability Calendar</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Pending Notification Menu Dropdown -->
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <!-- Circle Icon -->
+                        <div class="icon-hover" id="hoverDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
+                            <li><a class="dropdown-item" href="#" style="color:white; background:black;">PENDING ON YOU</a></li>
+                            <li><a class="dropdown-item" href="#">Request Management Center</a></li>
+                            <li><a class="dropdown-item" href="#">Pending Reservations</a></li>
+                            <li><a class="dropdown-item" href="#">Low/Excess Stock</a></li>
+                            <li><a class="dropdown-item" href="#">Services To Close</a></li>
+                            <li><a class="dropdown-item" href="#">Print Quequ</a></li>
+                            <li><a class="dropdown-item" href="#">Messages</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Settings Menu Dropdown -->
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <!-- Circle Icon -->
+                        <div class="icon-hover" id="hoverDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear-fill"></i>
+                        </div>
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
+                            <li><a class="dropdown-item" href="#" style="color:white; background:black;">Settings</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Help Center Menu Dropdown -->
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <!-- Circle Icon -->
+                        <div class="icon-hover" id="hoverDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-question-circle"></i>
+                        </div>
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="hoverDropdown">
+                            <li><a class="dropdown-item" href="#" style="color:white; background:black;">HELP CENTER</a></li>
+                            <li><a class="dropdown-item" href="#">Getting Started Guide</a></li>
+                            <li><a class="dropdown-item" href="#">Tutorial Videos</a></li>
+                            <li><a class="dropdown-item" href="#">Take A Tour</a></li>
+                            <li><a class="dropdown-item" href="#">Help Me</a></li>
+                        </ul>
+                    </div>
+                </li>
+                  
+                <!--Full Screen Option On Right Top Bar-->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+                        <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-light-primary elevation-4">
+            <!-- Brand Logo -->
+            <a asp-area="Admin" asp-controller="Productsa" asp-action="Dashboarda"  class="brand-link">
+                <img src="~/adminlte/img/EZ preloader-192x192.png" alt="EZO Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light"> EZO | Inventory </span>
+            </a>
+
+            
+
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block"><partial name="_UsernamePartial" /></a>
+                       
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="./index.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Products</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./index2.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <!-- Items On Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-cube" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Items
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Productsa" asp-action="Index" class="nav-link">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-box-archive" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Asset</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Productsa" asp-action="AssetStockIndex" class="nav-link">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-boxes-stacked" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Asset Stock</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Item" asp-action="Index" class="nav-link">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-cubes" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Inventory</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./index2.html" class="nav-link">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-gift" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Packages</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./index2.html" class="nav-link">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-layer-group" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Bundles</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./index2.html" class="nav-link">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-gear" style="color: red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Groups</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <!-- LOCATIONS On Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-location-dot fa-beat" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Locations
+                                    
+                                </p>
+                            </a>
+                            
+                        </li>
+
+                        <!-- Purchase Orders On Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-money-bill-1-wave" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Purchase Orders
+
+                                </p>
+                            </a>
+
+                        </li>
+
+                        <!-- Member & Access On Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-users" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Member & Access
+
+                                </p>
+                            </a>
+
+                        </li>
+
+                        
+                        <!-- Reports On Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a asp-controller="productsa" asp-action="AssetReport" class="nav-link">
+                                <i class="fa-solid fa-file-invoice-dollar" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Reports
+                                </p>
+                            </a>
+                        </li>
+
+                        <!-- Alerts & Emails Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a asp-controller="Log" asp-action="Index" class="nav-link">
+                                <i class="fa-solid fa-triangle-exclamation fa-beat-fade" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                   Log Alert Report
+                                </p>
+                            </a>
+                        </li>
+
+                        <!-- Vendors Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-cart-flatbed-suitcase" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Vendors
+                                </p>
+                            </a>
+                        </li>
+
+                        <!-- Documents Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="fa-regular fa-file-lines" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Documents
+                                </p>
+                            </a>
+                        </li>
+
+
+                        <!-- Customize Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-pen" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p class="font-for-sidebar-title">
+                                    Customize
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="./index.html" class="nav-link">
+                                        <i class="fa-solid fa-marker" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Custom Fields</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="./index2.html" class="nav-link">
+                                        <i class="fa-regular fa-credit-card" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p class="font-for-sidebar-title">Printout Templates</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <!--Produts section On left bar For Product Controller-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Products
+                                    <i class="fas fa-angle-left right"></i>
+                                    @* <span class="badge badge-info right">6</span> *@
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-action="Index" asp-controller="Product" asp-area="Admin" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>All Products</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="Create" asp-controller="Product" asp-area="Admin" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create New Product</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                        
+                        <!--Search Option Bottom-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-search"></i>
+                                <p>
+                                    Search
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Simple Search</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/search/enhanced.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Enhanced</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <!-- Logout Sidebar Left -->
+                        <li class="nav-item menu">
+                            <a asp-area="" asp-action="Logout" asp-controller="Account" class="nav-link">
+                                <i class="fa-regular fa-file-lines" style="color: #74C0FC;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p  class="font-for-sidebar-title">
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+
+
+                        <!--List Title-->
+                        @* <li class="nav-header">MISCELLANEOUS</li>
+                        
+                        <li class="nav-header">MULTI LEVEL EXAMPLE</li>
+                        
+                        <li class="nav-header">LABELS</li> *@
+                        
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+           @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer" style="height: 60px; display: flex; align-items: center; justify-content: center; padding: 5px;">
+            <div class="row" style="width: 100%;">
+                <div class="col text-center">
+                    <p style="margin: 0;">
+                        <a href="#terms" class="text-dark">Terms of Service</a> |
+                        <a href="#privacy" class="text-dark">Privacy Policy</a> |
+                        <a href="#support" class="text-dark">Contact Support</a><br />
+                        <a>© 2024 EZOfficeInventory. All rights reserved</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/adminlte/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/adminlte/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/adminlte/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/adminlte/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/adminlte/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/adminlte/plugins/moment/moment.min.js"></script>
+    <script src="~/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/adminlte/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/adminlte/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/adminlte/js/pages/dashboard.js"></script>
+    <!-- Render, before it was here -->
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
+    <!-- Icons from iconic.io-->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Data Table -->
+   
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
