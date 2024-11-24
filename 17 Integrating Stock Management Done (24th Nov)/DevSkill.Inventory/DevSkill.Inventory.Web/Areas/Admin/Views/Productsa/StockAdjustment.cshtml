@@ -1,0 +1,83 @@
+﻿@* @model List<DevSkill.Inventory.Web.Models.StockAdjustmentViewModel>
+@{
+    ViewData["Title"] = "Stock Adjustment";
+}
+
+<h2>Stock Adjustment</h2>
+
+<form asp-action="AdjustStock" method="post">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Location</th>
+                <th>Current Stock</th>
+                <th>Adjustment Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="[@item.ProductId].ProductId" value="@item.ProductId" />
+                        @item.ProductName
+                    </td>
+                    <td>@item.LocationName</td>
+                    <td>@item.CurrentStock</td>
+                    <td>
+                        <input type="number" name="[@item.ProductId].AdjustmentQuantity" class="form-control" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Adjustments</button>
+</form>
+ *@
+
+
+
+
+
+
+
+@model List<DevSkill.Inventory.Web.Models.StockAdjustmentViewModel>
+
+@{
+    ViewData["Title"] = "Stock Adjustment";
+}
+
+<h2>Stock Adjustment</h2>
+
+<form asp-action="AdjustStock" method="post">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Location</th>
+                <th>Current Stock(Initial)</th>
+                <th>Available Stock</th>
+                <th>Adjustment Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="[@i].ProductId" value="@Model[i].ProductId" />
+                        @Model[i].ProductName
+                    </td>
+                    <td>@Model[i].LocationName</td>
+                    <td>@Model[i].CurrentStock</td>
+                    <td>@Model[i].AvailableStock</td>
+                    <td>
+                        <input type="number" name="[@i].AdjustmentQuantity" class="form-control" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Adjustments</button>
+</form>

@@ -1,0 +1,51 @@
+﻿@* @{
+    ViewData["Title"] = "Operation Successful";
+}
+
+<h2>Operation Successful</h2>
+
+<p>The stock operation has been completed successfully!</p>
+<a asp-action="Dashboarda" class="btn btn-secondary">Go Back to Dashboard</a>
+ *@
+
+
+
+ @{
+    ViewData["Title"] = "Operation Successful";
+}
+
+<div class="text-center mt-5">
+    <div class="card shadow-lg p-4" style="max-width: 500px; margin: auto; border-radius: 15px; background-color: #f8f9fa;">
+        <div class="card-body">
+            <div class="icon text-success mb-3">
+                <i class="fas fa-check-circle fa-3x"></i>
+            </div>
+            <h2 class="card-title text-primary fw-bold">Operation Successful!</h2>
+            <p class="card-text text-muted mt-3">
+                Your stock operation was completed successfully. Everything looks great!
+            </p>
+            <a asp-action="Dashboarda" class="btn btn-primary mt-4 px-5 py-2 shadow-sm" style="border-radius: 25px;">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Stylesscss {
+    <style>
+        .icon i {
+            animation: fadeInZoom 0.5s ease;
+        }
+
+        @@keyframes fadeInZoom {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+}
