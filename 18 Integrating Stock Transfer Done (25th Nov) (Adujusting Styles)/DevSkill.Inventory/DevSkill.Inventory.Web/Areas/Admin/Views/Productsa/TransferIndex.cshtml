@@ -1,0 +1,49 @@
+﻿@model List<DevSkill.Inventory.Domain.Entities.Producta>
+
+@{
+    ViewBag.Title = "Transfer Products";
+    var locations = ViewBag.Locations as List<DevSkill.Inventory.Domain.Entities.Location>;
+}
+
+<h2>Transfer Products</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Current Location</th>
+            <th>Total Quantity</th>
+            <th>Available Quantity</th>
+            <th>Transfer To</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <form asp-action="Transfer" asp-controller="Productsa" method="post">
+                <td>@product.Name</td>
+                <td>@product.Category?.Name</td>
+                <td>@product.Location?.Name</td>
+                <td>@product.TotalQuantity</td>
+                <td>@product.AvailableQuantity</td>
+                <td>
+                    <input type="hidden" name="ProductId" value="@product.Id" />
+                    <select name="NewLocationId" class="form-control" required>
+                        <option value="">Select Location</option>
+                            @foreach (var location in locations)
+                            {
+                            <option value="@location.Id">@location.Name</option>
+                            }
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Transfer</button>
+                </td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
