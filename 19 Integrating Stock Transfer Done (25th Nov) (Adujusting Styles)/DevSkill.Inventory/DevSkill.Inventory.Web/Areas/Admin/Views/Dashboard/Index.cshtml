@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Dropdowns -->
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Time Period Dropdown -->
+                    <div class="form-group">
+                        <label>Select Time Period:</label>
+                        <select class="form-control">
+                            <option>Today</option>
+                            <option>Last 7 Days</option>
+                            <option>One Month</option>
+                            <option>Two Months</option>
+                            <option>90 Days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Location Dropdown -->
+                    <div class="form-group">
+                        <label>Select Location:</label>
+                        <select class="form-control">
+                            <option>New York</option>
+                            <option>London</option>
+                            <option>Tokyo</option>
+                            <option>Dhaka</option>
+                            <option>Paris</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Row -->
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>150</h3>
+                            <p>New Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <p>Bounce Rate</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>44</h3>
+                            <p>User Registrations</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
