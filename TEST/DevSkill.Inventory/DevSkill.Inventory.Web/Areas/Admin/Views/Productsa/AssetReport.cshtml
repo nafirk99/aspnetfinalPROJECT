@@ -1,0 +1,124 @@
+﻿@* @model List<DevSkill.Inventory.Domain.Entities.Producta>
+
+@{
+    ViewData["Title"] = "Asset Report";
+}
+
+<h2>Asset Report</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Asset#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Total Quantity</th>
+            <th>Available Quantity</th>
+            <th>Stock Price</th>
+            <th>Creation Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var asset in Model)
+        {
+            <tr>
+                <td>@asset.Id</td>
+                <td>@asset.Name</td>
+                <td>@asset.Description</td>
+                <td>@asset.TotalQuantity</td>
+                <td>@asset.AvailableQuantity</td>
+                <td>@asset.StockPrice</td>
+                <td>@asset.CreatedAt.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mb-3">
+    <a asp-controller="Productsa" asp-action="ExportToExcel" class="btn btn-success">Export to Excel</a>
+</div> *@
+
+
+
+
+
+
+
+
+
+
+
+
+@model List<DevSkill.Inventory.Domain.Entities.Producta>
+
+@{
+    ViewData["Title"] = "Asset Report";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"><b>Asset Report</b></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Asset Report</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title"><i class="fas fa-chart-bar"></i> Detailed Asset Report</h3>
+                <div class="card-tools">
+                    <a asp-controller="Productsa" asp-action="ExportToExcel" class="btn btn-success btn-sm shadow-sm">
+                        <i class="fas fa-file-excel"></i> Export to Excel
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Asset#</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Total Quantity</th>
+                                <th>Available Quantity</th>
+                                <th>Stock Price</th>
+                                <th>Creation Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var asset in Model)
+                            {
+                                <tr>
+                                    <td><strong>@asset.Id</strong></td>
+                                    <td>@asset.Name</td>
+                                    <td>@asset.Description</td>
+                                    <td>
+                                        <span class="text-muted">@asset.TotalQuantity</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-success">@asset.AvailableQuantity</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-info">@asset.StockPrice.ToString("C")</span>
+                                    </td>
+                                    <td>@asset.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

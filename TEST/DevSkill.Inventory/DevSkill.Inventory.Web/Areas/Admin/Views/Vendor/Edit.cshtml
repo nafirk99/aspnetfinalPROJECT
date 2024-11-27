@@ -1,0 +1,27 @@
+﻿@model DevSkill.Inventory.Domain.Entities.VendorDTO
+@{
+    ViewData["Title"] = "Edit Vendor";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <!-- Your content goes here -->
+            <h2>Edit Vendor</h2>
+            <form asp-action="Edit" method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
