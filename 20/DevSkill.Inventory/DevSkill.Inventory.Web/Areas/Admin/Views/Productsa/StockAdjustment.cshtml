@@ -1,0 +1,169 @@
+﻿@* @model List<DevSkill.Inventory.Web.Models.StockAdjustmentViewModel>
+@{
+    ViewData["Title"] = "Stock Adjustment";
+}
+
+<h2>Stock Adjustment</h2>
+
+<form asp-action="AdjustStock" method="post">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Location</th>
+                <th>Current Stock</th>
+                <th>Adjustment Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="[@item.ProductId].ProductId" value="@item.ProductId" />
+                        @item.ProductName
+                    </td>
+                    <td>@item.LocationName</td>
+                    <td>@item.CurrentStock</td>
+                    <td>
+                        <input type="number" name="[@item.ProductId].AdjustmentQuantity" class="form-control" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Adjustments</button>
+</form>
+ *@
+
+
+ <!------------------------------------------------------------------------------------------------------->
+
+
+
+@* 
+@model List<DevSkill.Inventory.Web.Models.StockAdjustmentViewModel>
+
+@{
+    ViewData["Title"] = "Stock Adjustment";
+}
+
+<h2>Stock Adjustment</h2>
+
+<form asp-action="AdjustStock" method="post">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Location</th>
+                <th>Current Stock(Initial)</th>
+                <th>Available Stock</th>
+                <th>Adjustment Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="[@i].ProductId" value="@Model[i].ProductId" />
+                        @Model[i].ProductName
+                    </td>
+                    <td>@Model[i].LocationName</td>
+                    <td>@Model[i].CurrentStock</td>
+                    <td>@Model[i].AvailableStock</td>
+                    <td>
+                        <input type="number" name="[@i].AdjustmentQuantity" class="form-control" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Adjustments</button>
+</form>
+ *@
+
+
+
+
+
+
+
+
+
+@model List<DevSkill.Inventory.Web.Models.StockAdjustmentViewModel>
+
+@{
+    ViewData["Title"] = "Stock Adjustment";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark"><b>Stock Adjustment</b></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Stock Adjustment</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-dark text-white">
+                <h3 class="card-title"><i class="fas fa-cogs"></i> Adjust Stock</h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="AdjustStock" method="post">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped align-middle">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Location</th>
+                                    <th>Current Stock (Initial)</th>
+                                    <th>Available Stock</th>
+                                    <th>Adjustment Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" name="[@i].ProductId" value="@Model[i].ProductId" />
+                                            <strong>@Model[i].ProductName</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-info">@Model[i].LocationName</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted">@Model[i].CurrentStock</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-success">@Model[i].AvailableStock</span>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="[@i].AdjustmentQuantity" class="form-control form-control-sm border-primary" @* min="0" *@ placeholder="Enter quantity" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-success shadow-sm">
+                            <i class="fas fa-check-circle"></i> Submit Adjustments
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

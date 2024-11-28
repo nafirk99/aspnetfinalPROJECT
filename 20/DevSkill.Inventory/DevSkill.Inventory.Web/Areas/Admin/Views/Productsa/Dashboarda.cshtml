@@ -1,0 +1,247 @@
+﻿@model DevSkill.Inventory.Domain.Entities.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Page header -->
+        <div class="content-header">
+            <h3><b>My Dashboard</b></h3>
+        </div>
+
+        <!-- Dropdowns -->
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Time Period Dropdown -->
+                <div class="form-group">
+                    <label>Select Time Period:</label>
+                    <select class="form-control">
+                        <option>Today</option>
+                        <option>Yesterday</option>
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                        <option>Last 180 Days</option>
+                        <option>Tomorrow</option>
+                        <option>Two Months</option>
+                        <option>Nex 30 Days</option>
+                        <option>Nex 60 Days</option>
+                        <option>This Week</option>
+                        <option>Nex 90 Days</option>
+                        <option>Nex 90 Days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <!-- Location Dropdown -->
+                <div class="form-group">
+                    <label>Select Location:</label>
+                    <select class="form-control">
+                        <option>New York</option>
+                        <option>London</option>
+                        <option>Tokyo</option>
+                        <option>Dhaka</option>
+                        <option>Paris</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br /> <br /> <br />
+        <!--Cards Overal Stats, Quick Actions, Assets Value -->
+        <div class="row">
+            <!--Overal Stats -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="container">
+                        <h4><b>Overall Stats</b></h4>
+                        <p>TOTAL ASSET: @Model.ProductCount</p>
+                        <p>ASSET CATEGORIES: @Model.CategoryCount</p>
+                        <p>BRAND SPONSORED: @Model.BrandCount</p>
+                        <p>VENDOR SPONSORED: @Model.VendorCount</p>
+                        <p>GROUPS AVAILABLE: @Model.GroupCount</p>
+                        <p>LOCATIONS: @Model.LocationCount</p>
+                    </div>
+                </div>
+            </div>
+            <!--Quick Actions-->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="container">
+                        <h4><b>QUICK ACTIONS</b></h4>
+                        <p>ADD ASSET(TO CHECK-IN/OUT)</p>
+                        <p>ADD INVENTORY(CONSUMABLES)</p>
+                        <p>ADD LOCATION</p>
+                        <p>ADD MEMBER</p>
+                    </div>
+                </div>
+            </div>
+            <!--Assets Value-->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="container">
+                        <h4><b>Assets Value</b></h4>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>$@Model.AllAssetPrice</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <!-- Widgets Row -->
+        <div class="row">
+            <!-- Total Products Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-blue">
+                    <div class="inner">
+                        <h3>@Model.ProductCount</h3> <!-- Total Products Count -->
+                        <p>Products Avvailable</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Total Categories Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h3>@Model.CategoryCount</h3> <!-- Total Categories Count -->
+                        <p>Categories</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion fa-solid fa-layer-group"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Total Orders Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-fuchsia">
+                    <div class="inner">
+                        <h3>@Model.LocationCount</h3> <!-- Total Orders Count -->
+                        <p>Locations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion fa-solid fa-earth-americas"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Total Revenue Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-olive">
+                    <div class="inner">
+                        <h3>$@Model.AllAssetPrice</h3> <!-- Total Revenue -->
+                        <p>Revenue</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion fa-solid fa-dollar-sign"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <!-- Widgets Row 2 -->
+        <div class="row">
+            <!-- Total Products Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-orange">
+                    <div class="inner">
+                        <h3>@Model.VendorCount</h3> <!-- Total Products Count -->
+                        <p>Vendors</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion fa-solid fa-truck-fast"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Total Categories Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-maroon">
+                    <div class="inner">
+                        <h3>@Model.GroupCount</h3> <!-- Total Categories Count -->
+                        <p>Groups</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion fa-solid fa-feather"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Total Orders Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-pink">
+                    <div class="inner">
+                        <h3>@Model.TotalQuantity</h3> <!-- Total Orders Count -->
+                        <p>Initial Quantity</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion fa-solid fa-solid fa-sitemap"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Total Revenue Widget -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="small-box bg-teal">
+                    <div class="inner">
+                        <h3>@Model.AvailableQuantity</h3> <!-- Total Revenue -->
+                        <p>Available Quantity</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion fa-solid fa-cube"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <hr />
+
+        <!-- Row for charts or more details -->
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Placeholder for a chart or summary section -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Sales Overview</h3>
+                    </div>
+                    <div class="box-body">
+                        <p>This section can contain a sales chart or overview of recent activity.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <!-- Placeholder for another section -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Recent Activity</h3>
+                    </div>
+                    <div class="box-body">
+                        <p>Recent orders or product additions can be shown here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
