@@ -1,0 +1,23 @@
+
+###EZO Functionality###
+
+1. Registration with Mailtrap.
+2. Dashboard-> Product, Category, Location, Revenue etc Information.
+3. Top Right nav, create new Location, category, group, Vendor
+4. Add neis Product.
+5. Edit Product,Delete Product
+6. Bulk Delete
+7. Asset Stock-> Low Stock binking, Image Hover(Enlarge)
+8. Asset-> Normal Search
+9. Asset-> Advanced search by (Category Vendor, Group, Location, Date)
+10. CSV, Excel, PDF, Print, Show [10] Entries Pagination
+11. Stock Adjustment
+12. Stock Transfer
+13. Category, Locations, Group, Vendor
+14. Paurchase order-> Create new package
+                  -> Procede to check out
+15. Member panel-> Create Role
+               -> Change Role
+16. Reports-> Export to excel
+17. Log Alert Report-> Show all the log
+18. Logout.
